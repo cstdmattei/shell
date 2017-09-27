@@ -1,4 +1,4 @@
-Shell Scripts
+GAMMIT
 =============
 
-Various shell scripts I've created to automate tasks.
+Shell script I've created/forked from Joerod to automate GAM Tasks.
