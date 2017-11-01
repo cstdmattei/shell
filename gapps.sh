@@ -40,10 +40,10 @@ do
  echo "15. Admin Another User"
  echo "16. Delete $email's Gdrive File by ID" 
  echo "17. Show $email's Team Drives" 
- echo "18. Back to Main Menu" 
- echo "19. Exit"
- echo "20. User info"
- echo "21. Delegate $email to someone else"
+ echo "18. User info"
+ echo "19. Delegate $email to someone else"
+ echo "20. Back to Main Menu" 
+ echo "21. Exit"
 
 
  echo "Please enter option [1 - 15]"
@@ -183,28 +183,30 @@ do
          echo "Team Drives Listed [enter] key to continue. . .";
         read enterKey;;
 
-    18)  clear;
-    	echo "Back to Main Menu";
-		sleep 2;
-        mainmenu;;
         
-    19) echo "Bye $USER";
-        exit 1;; 
-        
-    20) clear;
+    18) clear;
         $gam whatis $email
         read enterKey;;
         
-    21) clear;
+    19) clear;
         read -p  "Enter User to Receive Delegation: " usred;
         $gam user $email delegate to $usred
         echo "$email now delegated to $usred [enter] key to continue. . .";
         read enterKey;;
     
         
-     *) echo "$opt is an invaild option. Please select option between 1-15 only"
+   20)  clear;
+    	echo "Back to Main Menu";
+		sleep 2;
+        mainmenu;;
+        
+    21) echo "Bye $USER";
+        exit 1;;      
+        
+    *) echo "$opt is an invaild option. Please select option between 1-15 only"
        echo "Press [enter] key to continue. . .";
-        read enterKey;;
+	   read enterKey;;
+	   
 esac
 done
 }
@@ -213,13 +215,18 @@ global(){
 while :
 do
  clear
+ tput setaf 1
+ tput bold
  echo "   Global Domain Wide Options"
  echo "************ Global ************";
  echo "1. Delete Message From All" 
  echo "2. Exit"
  echo "3. Print Groups info to CSV" 
  echo "4. Print All Users 2 Step enrolled / enforced" 
- echo "5. Back to Main Menu" 
+ echo "5. Sync CSV members to Group"
+ echo "6. Sync CSV members to Group"
+ echo "7. Remove All Members/Owners/Managers from a Group"
+ echo "8. Back to Main Menu" 
 
 
 
@@ -247,9 +254,31 @@ do
         $gam print users is2svenrolled is2svenforced
         echo "All tasks preformed press [enter] key to continue. . .";
         read enterKey;;
-
+        
+     5) clear;
+     	echo "****** Take Members from CSV and update Group *******";
+     	read -p "Please enter Group to Update (groupex@domain.com): " groupname;
+     	read -p "Please enter CSV File Name (full path if in different folder,  ex /Users/me/Desktop/party.csv) to use: " csvname;
+     	$gam update group $groupname sync member file $csvname
+        echo "All tasks preformed press [enter] key to continue. . .";
+        read enterKey;;
+        
+    6) clear;
+     	echo "****** Print a single group member list to CSV *******";
+     	read -p "Please enter Group to Print (groupex@domain.com): " groupname;
+     	read -p "Please enter CSV File Name (full path if in different folder,  ex /Users/me/Desktop/party.csv) to use: " csvname;
+     	$gam print group-members group $groupname > $csvname
+        echo "Group membership should be in the csv[enter] key to continue. . .";
+        read enterKey;;
+        
+     7) clear;
+	    echo "****** Delete ALL Members Owners Managers From Group *******";
+        read -p "Please enter Group to clear (groupex@domain.com): " groupname;
+        $gam update group $groupname clear owner manager member;
+        echo "Group $groupname has had all members removed. Press [enter] key to continue. . .";
+        read enterKey;;
         	
-    5)  clear;
+    8)  clear;
     	echo "Back to Main Menu";
 		sleep 2;
         mainmenu;;
