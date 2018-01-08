@@ -224,9 +224,10 @@ do
  echo "3. Print Groups info to CSV" 
  echo "4. Print All Users 2 Step enrolled / enforced" 
  echo "5. Sync CSV members to Group"
- echo "6. Sync CSV members to Group"
+ echo "6. Print to CSV members from Group (may not have ownders)"
  echo "7. Remove All Members/Owners/Managers from a Group"
- echo "8. Back to Main Menu" 
+ echo "8. Set all groups to display in the directoy"
+ echo "9. Back to Main Menu" 
 
 
 
@@ -277,8 +278,19 @@ do
         $gam update group $groupname clear owner manager member;
         echo "Group $groupname has had all members removed. Press [enter] key to continue. . .";
         read enterKey;;
+        
+     8) clear;
+	    echo "****** Show ALL Groups in Directoy (good for cleanup) *******";
+        echo "THIS WILL CHANGE ALL GROUPS. Press [enter] key to continue. . .";
+        read enterKey;
+        $gam  print groups | $gam csv - $gam update group ~Email showInGroupDirectory true;
+        echo "All groups now show in the directory. Press [enter] key to continue. . .";
+        read enterKey;;
+        
+        
+        
         	
-    8)  clear;
+    9)  clear;
     	echo "Back to Main Menu";
 		sleep 2;
         mainmenu;;
