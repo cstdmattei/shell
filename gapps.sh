@@ -306,6 +306,78 @@ esac
 done
 }
 
+
+
+
+passfast(){
+while :
+do
+clear
+tput setaf 1
+tput bold
+echo "   Password Reset Loops"
+echo "************ Global ************";
+echo "1. Start password Reset"
+echo "2. Back to Main Menu"
+
+
+
+read opt
+case $opt in
+
+1) echo "************ Reset Password ************";
+randpassword=$(env LC_CTYPE=C tr -dc "a-zA-Z0-9-_\$\?" < /dev/urandom | head -c 8) #creates random 8 charecter password
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+echo "Password has been reset to $randpassword [enter] key to continue. . .";
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+read -p "Please enter Email Account to Reset Password On: " email;
+$gam update user $email password $randpassword
+read enterKey;;
+
+
+2)  clear;
+echo "Back to Main Menu";
+sleep 2;
+mainmenu;;
+
+
+
+
+
+*) echo "$opt is an invaild option. Please select option between 1-15 only"
+echo "Press [enter] key to continue. . .";
+read enterKey;;
+esac
+done
+}
+
+
+
+
+
+
+
+
+
+
+
+
 mainmenu(){
 while :
 do
@@ -313,8 +385,9 @@ do
  echo "************ Gammit By Dennis Mattei ************";
  echo "   M A I N - M E N U"
  echo "1. Admin a single user" 
- echo "2. Global" 
- echo "3. Exit" 
+ echo "2. Global"
+ echo "3. Password Reset Quick Batch"
+ echo "4. Exit"
 
 
     read opt
@@ -328,9 +401,11 @@ do
  
     2) echo "************ Admin Global ************";
         global;;
-        
+
+    3) echo "************ Password Fast ************";
+        passfast;;
       
-    3) echo "Bye $USER";
+    4) echo "Bye $USER";
         exit 1;; 
         
         
